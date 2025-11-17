@@ -16,31 +16,35 @@
 namespace QtWebApp {
 
 /**
-  Logs messages into two log files simultaneously.
-  May be used to create two logfiles with different configuration settings.
+  Writes log messages into two log files simultaneously.
+  I recommend to configure:
+  - The primary logfile with minLevel=INFO or WARNING and bufferSize=0. This file is for the operator to see when a problem occured.
+  - The secondary logfile with minLevel=WARNING or ERROR and bufferSize=100. This file is for the developer who may need more details (the debug messages) about the
+  situation that leaded to the error.
+
   @see FileLogger for a description of the two underlying loggers.
 */
 
 class DECLSPEC DualFileLogger : public Logger {
     Q_OBJECT
-    Q_DISABLE_COPY( DualFileLogger )
+    Q_DISABLE_COPY(DualFileLogger)
 public:
 
     /**
       Constructor.
-      @param firstSettings Configuration settings for the first logfile, usually stored in an INI file.
+      @param firstSettings Configuration settings for the primary FileLogger instance, usually stored in an INI file.
       Must not be 0.
       Settings are read from the current group, so the caller must have called settings->beginGroup().
       Because the group must not change during runtime, it is recommended to provide a
       separate QSettings instance that is not used by other parts of the program.
       The FileLogger does not take over ownership of the QSettings instance, so the caller
       should destroy it during shutdown.
-      @param secondSettings Same as firstSettings, but for the second log file.
+      @param secondSettings Same as firstSettings, but for the secondary FileLogger instance.
       @param refreshInterval Interval of checking for changed config settings in msec, or 0=disabled
       @param parent Parent object.
     */
-    DualFileLogger( QSettings* firstSettings, QSettings* secondSettings,
-                    const int refreshInterval=10000, QObject *parent = nullptr );
+    DualFileLogger(QSettings* firstSettings, QSettings* secondSettings,
+                   const int refreshInterval=10000, QObject *parent = nullptr);
 
     /**
       Decorate and log the message, if type>=minLevel.
@@ -52,8 +56,8 @@ public:
       @param line Line Number of the source file, where the message was generated (usually filles with the macro __func__ or __FUNCTION__)
       @see LogMessage for a description of the message decoration.
     */
-    virtual void log( const QtMsgType type, const QString& message, const QString &file="",
-                      const QString &function="", const int line=0 );
+    virtual void log(const QtMsgType type, const QString& message, const QString &file="",
+                     const QString &function="", const int line=0);
 
     /**
       Clear the thread-local data of the current thread.
@@ -61,7 +65,7 @@ public:
       @param buffer Whether to clear the backtrace buffer
       @param variables Whether to clear the log variables
     */
-    virtual void clear( const bool buffer=true, const bool variables=true );
+    virtual void clear(const bool buffer=true, const bool variables=true);
 
 private:
 

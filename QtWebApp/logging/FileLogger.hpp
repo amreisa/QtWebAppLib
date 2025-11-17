@@ -25,12 +25,13 @@ namespace QtWebApp {
   fileName=logs/QtWebApp.log
   maxSize=1000000
   maxBackups=2
-  minLevel=0
-  msgformat={timestamp} {typeNr} {type} thread={thread}: {msg}
-  timestampFormat=dd.MM.yyyy hh:mm:ss.zzz
   bufferSize=0
+  minLevel=WARNING
+  msgformat={timestamp} {typeNr} {type} thread={thread}: {msg}
+  timestampFormat=dd.MM.yyyy hh:mm:ss.zzz  
   </pre></code>
 
+  - Possible log levels are: ALL/DEBUG=0, INFO=4, WARN/WARNING=1, ERROR/CRITICAL=2, FATAL=3
   - fileName is the name of the log file, relative to the directory of the settings file.
     In case of windows, if the settings are in the registry, the path is relative to the current
     working directory.
@@ -38,10 +39,14 @@ namespace QtWebApp {
     replaced by a new file if it becomes larger than this limit. Please note that
     the actual file size may become a little bit larger than this limit. Default is 0=unlimited.
   - maxBackups defines the number of backup files to keep. Default is 0=unlimited.
-  - minLevel defines the minimum type of messages that are written (together with buffered messages) into the file. Defaults is 0=debug.
+  - bufferSize defines the size of the ring buffer. Default is 0=disabled.
+  - minLevel If bufferSize=0: Messages with lower level are discarded.<br>
+             If buffersize>0: Messages with lower level are buffered, messages with equal or higher
+             level (except INFO) trigger writing the buffered messages into the file.<br>
+             Defaults is 0=debug.
   - msgFormat defines the decoration of log messages, see LogMessage class. Default is "{timestamp} {type} {msg}".
   - timestampFormat defines the format of timestamps, see QDateTime::toString(). Default is "yyyy-MM-dd hh:mm:ss.zzz".
-  - bufferSize defines the size of the buffer. Default is 0=disabled.
+
 
   @see set() describes how to set logger variables
   @see LogMessage for a description of the message decoration.
@@ -50,7 +55,7 @@ namespace QtWebApp {
 
 class DECLSPEC FileLogger : public Logger {
     Q_OBJECT
-    Q_DISABLE_COPY( FileLogger )
+    Q_DISABLE_COPY(FileLogger)
 public:
 
     /**
@@ -64,7 +69,7 @@ public:
       @param refreshInterval Interval of checking for changed config settings in msec, or 0=disabled
       @param parent Parent object
     */
-    FileLogger( QSettings* settings, const int refreshInterval=10000, QObject* parent = nullptr );
+    FileLogger(QSettings* settings, const int refreshInterval=10000, QObject* parent = nullptr);
 
     /**
       Destructor. Closes the file.
@@ -72,7 +77,7 @@ public:
     virtual ~FileLogger();
 
     /** Write a message to the log file */
-    virtual void write( const LogMessage* logMessage );
+    virtual void write(const LogMessage* logMessage);
 
 protected:
 
@@ -82,7 +87,7 @@ protected:
       This method is thread-safe.
       @param event used to distinguish between the two timers.
     */
-    void timerEvent( QTimerEvent* event );
+    void timerEvent(QTimerEvent* event);
 
 private:
 

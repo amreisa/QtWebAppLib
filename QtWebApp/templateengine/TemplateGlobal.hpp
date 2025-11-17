@@ -3,8 +3,8 @@
   @author Stefan Frings
 */
 
-#ifndef TEMPLATEGLOBAL_H
-#define TEMPLATEGLOBAL_H
+#ifndef TEMPLATEGLOBAL_HPP
+#define TEMPLATEGLOBAL_HPP
 
 #include <QtGlobal>
 
@@ -20,5 +20,5 @@
     #define DECLSPEC
 #endif
 
-#endif // TEMPLATEGLOBAL_H
+#endif // TEMPLATEGLOBAL_HPP
 

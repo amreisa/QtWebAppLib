@@ -26,14 +26,14 @@ namespace QtWebApp {
 
 class DECLSPEC HttpRequestHandler : public QObject {
     Q_OBJECT
-    Q_DISABLE_COPY( HttpRequestHandler )
+    Q_DISABLE_COPY(HttpRequestHandler)
 public:
 
     /**
      * Constructor.
      * @param parent Parent object.
      */
-    HttpRequestHandler( QObject* parent = nullptr );
+    HttpRequestHandler(QObject* parent=nullptr);
 
     /** Destructor */
     virtual ~HttpRequestHandler();
@@ -44,7 +44,7 @@ public:
       @param response Must be used to return the response
       @warning This method must be thread safe
     */
-    virtual void service( HttpRequest& request, HttpResponse& response );
+    virtual void service(HttpRequest& request, HttpResponse& response);
 
 };
 

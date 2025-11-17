@@ -39,7 +39,7 @@ Fixed a possible memory leak in case of broken Multipart HTTP Requests.
 
 1.7.0
 08.11.2016
-Introduced namespace "stefanfrings".
+Introduced namespace "QtWebApp".
 Improved performance a little.
 
 1.6.7

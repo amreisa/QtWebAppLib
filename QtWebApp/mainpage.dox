@@ -7,7 +7,7 @@
   <p>
   Features:
 
-  - stefanfrings::HttpListener is a HTTP 1.1 web server with support for
+  - QtWebApp::HttpListener is a HTTP 1.1 web server with support for
       - HTTPS
       - IP v4 and IP v6
       - persistent connections
@@ -15,15 +15,15 @@
       - file uploads
       - cookies
       - dynamic thread pool
-      - optional file cache in stefanfrings::StaticFileController
-      - optional sessions via stefanfrings::HttpSessionStore
-  - The stefanfrings::Template engine supports
-      - multi languages via stefanfrings::TemplateLoader
-      - optional file cache via stefanfrings::TemplateCache
+      - optional file cache in QtWebApp::StaticFileController
+      - optional sessions via QtWebApp::HttpSessionStore
+  - The QtWebApp::Template engine supports
+      - multi languages via QtWebApp::TemplateLoader
+      - optional file cache via QtWebApp::TemplateCache
       - for all text based file formats
-  - The stefanfrings::Logger classes provide
+  - The QtWebApp::Logger classes provide
       - automatic backups and file rotation
-      - configurable message format, see stefanfrings::LogMessage
+      - configurable message format, see QtWebApp::LogMessage
       - messages may contain thread-local info variables
       - optional ring-buffer to improve performance and reduce disk usage
       - apply configuration changes without restart

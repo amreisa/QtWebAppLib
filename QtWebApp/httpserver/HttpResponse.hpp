@@ -34,14 +34,14 @@ namespace QtWebApp {
 */
 
 class DECLSPEC HttpResponse {
-    Q_DISABLE_COPY( HttpResponse )
+    Q_DISABLE_COPY(HttpResponse)
 public:
 
     /**
       Constructor.
       @param socket used to write the response
     */
-    HttpResponse( QTcpSocket *socket );
+    HttpResponse(QTcpSocket *socket);
 
     /**
       Set a HTTP response header.
@@ -49,7 +49,7 @@ public:
       @param name name of the header
       @param value value of the header
     */
-    void setHeader( const QByteArray name, const QByteArray value );
+    void setHeader(const QByteArray name, const QByteArray value);
 
     /**
       Set a HTTP response header.
@@ -57,7 +57,7 @@ public:
       @param name name of the header
       @param value value of the header
     */
-    void setHeader( const QByteArray name, const int value );
+    void setHeader(const QByteArray name, const int value);
 
     /** Get the map of HTTP response headers */
     QMap<QByteArray,QByteArray>& getHeaders();
@@ -69,7 +69,7 @@ public:
       Set status code and description. The default is 200,OK.
       You must call this method before the first write().
     */
-    void setStatus( const int statusCode, const QByteArray description=QByteArray() );
+    void setStatus(const int statusCode, const QByteArray description=QByteArray());
 
     /** Return the status code. */
     int getStatusCode() const;
@@ -87,7 +87,7 @@ public:
       @param data Data bytes of the body
       @param lastPart Indicates that this is the last chunk of data and flushes the output buffer.
     */
-    void write( const QByteArray data, const bool lastPart=false );
+    void write(const QByteArray data, const bool lastPart=false);
 
     /**
       Indicates whether the body has been sent completely (write() has been called with lastPart=true).
@@ -98,14 +98,14 @@ public:
       Set a cookie.
       You must call this method before the first write().
     */
-    void setCookie( const HttpCookie& cookie );
+    void setCookie(const HttpCookie& cookie);
 
     /**
       Send a redirect response to the browser.
       Cannot be combined with write().
       @param url Destination URL
     */
-    void redirect( const QByteArray& url );
+    void redirect(const QByteArray& url);
 
     /**
      * Flush the output buffer (of the underlying socket).
@@ -123,7 +123,7 @@ public:
 private:
 
     /** Request headers */
-    QMap< QByteArray, QByteArray > headers;
+    QMap<QByteArray,QByteArray> headers;
 
     /** Socket for writing output */
     QTcpSocket* socket;
@@ -147,7 +147,7 @@ private:
     QMap<QByteArray,HttpCookie> cookies;
 
     /** Write raw data to the socket. This method blocks until all bytes have been passed to the TCP buffer */
-    bool writeToSocket( QByteArray data );
+    bool writeToSocket(QByteArray data);
 
     /**
       Write the response HTTP status and headers to the socket.

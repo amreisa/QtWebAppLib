@@ -6,28 +6,29 @@
 #ifndef HTTPCONNECTIONHANDLER_HPP
 #define HTTPCONNECTIONHANDLER_HPP
 
-#ifndef QT_NO_OPENSSL
+#ifndef QT_NO_SSL
 #include <QSslConfiguration>
 #endif
+
 #include <QTcpSocket>
 #include <QSettings>
 #include <QTimer>
 #include <QThread>
 #include "HttpGlobal.hpp"
-#include "HttpRequest.hpp"
+#include "httprequest.h"
 #include "HttpRequestHandler.hpp"
 
 namespace QtWebApp {
 
 /** Alias type definition, for compatibility to different Qt versions */
-#if QT_VERSION >= 0x050000
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 typedef qintptr tSocketDescriptor;
 #else
 typedef int tSocketDescriptor;
 #endif
 
 /** Alias for QSslConfiguration if OpenSSL is not supported */
-#ifdef QT_NO_OPENSSL
+#ifdef QT_NO_SSL
 #define QSslConfiguration QObject
 #endif
 
@@ -38,17 +39,20 @@ typedef int tSocketDescriptor;
   <p>
   Example for the required configuration settings:
   <code><pre>
-  readTimeout = 60000
-  maxRequestSize = 16000
-  maxMultiPartSize = 1000000
+  readTimeout=60000
+  maxRequestSize=16000
+  maxMultiPartSize=1000000
   </pre></code>
   <p>
   The readTimeout value defines the maximum time to wait for a complete HTTP request.
-  @see HttpRequest for description of config settings maxRequestSize and maxMultiPartSize.
+  <p>
+  MaxRequestSize is the maximum size of a HTTP request. In case of
+  multipart/form-data requests (also known as file-upload), the maximum
+  size of the body must not exceed maxMultiPartSize.
 */
 class DECLSPEC HttpConnectionHandler : public QObject {
     Q_OBJECT
-    Q_DISABLE_COPY( HttpConnectionHandler )
+    Q_DISABLE_COPY(HttpConnectionHandler)
 
 public:
 
@@ -58,8 +62,8 @@ public:
       @param requestHandler Handler that will process each incoming HTTP request
       @param sslConfiguration SSL (HTTPS) will be used if not NULL
     */
-    HttpConnectionHandler( const QSettings* settings, HttpRequestHandler* requestHandler,
-                           const QSslConfiguration* sslConfiguration = nullptr );
+    HttpConnectionHandler(const QSettings* settings, HttpRequestHandler* requestHandler,
+                          const QSslConfiguration* sslConfiguration=nullptr);
 
     /** Destructor */
     virtual ~HttpConnectionHandler();
@@ -105,7 +109,7 @@ public slots:
       Received from from the listener, when the handler shall start processing a new connection.
       @param socketDescriptor references the accepted connection.
     */
-    void handleConnection( const tSocketDescriptor socketDescriptor );
+    void handleConnection(const tSocketDescriptor socketDescriptor);
 
 private slots:
 

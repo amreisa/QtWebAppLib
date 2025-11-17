@@ -35,7 +35,7 @@ namespace QtWebApp {
 
 class DECLSPEC LogMessage
 {
-    Q_DISABLE_COPY( LogMessage )
+    Q_DISABLE_COPY(LogMessage)
 public:
 
     /**
@@ -48,8 +48,8 @@ public:
       @param function Name of the function where the message was generated
       @param line Line Number of the source file, where the message was generated
     */
-    LogMessage( const QtMsgType type, const QString& message, const QHash<QString,QString>* logVars,
-                const QString &file, const QString &function, const int line );
+    LogMessage(const QtMsgType type, const QString& message, const QHash<QString,QString>* logVars,
+               const QString &file, const QString &function, const int line);
 
     /**
       Returns the log message as decorated string.
@@ -58,7 +58,7 @@ public:
       @param timestampFormat Format of timestamp, e.g. "dd.MM.yyyy hh:mm:ss.zzz", see QDateTime::toString().
       @see QDatetime for a description of the timestamp format pattern
     */
-    QString toString( const QString& msgFormat, const QString& timestampFormat ) const;
+    QString toString(const QString& msgFormat, const QString& timestampFormat) const;
 
     /**
       Get the message type.

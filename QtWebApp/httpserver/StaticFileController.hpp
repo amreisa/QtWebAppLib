@@ -44,7 +44,7 @@ namespace QtWebApp {
 
 class DECLSPEC StaticFileController : public HttpRequestHandler  {
     Q_OBJECT
-    Q_DISABLE_COPY( StaticFileController )
+    Q_DISABLE_COPY(StaticFileController)
 public:
 
     /**
@@ -57,10 +57,10 @@ public:
       caller should destroy it during shutdown.
       @param parent Parent object
      */
-    StaticFileController( const QSettings* settings, QObject* parent = nullptr );
+    StaticFileController(const QSettings* settings, QObject* parent = nullptr);
 
     /** Generates the response */
-    void service( HttpRequest& request, HttpResponse& response );
+    void service(HttpRequest& request, HttpResponse& response);
 
 private:
 
@@ -86,13 +86,13 @@ private:
     int maxCachedFileSize;
 
     /** Cache storage */
-    QCache< QString, CacheEntry > cache;
+    QCache<QString,CacheEntry> cache;
 
     /** Used to synchronize cache access for threads */
     QMutex mutex;
 
     /** Set a content-type header in the response depending on the ending of the filename */
-    void setContentType( const QString file, HttpResponse &response ) const;
+    void setContentType(const QString file, HttpResponse &response) const;
 };
 
 } // end of namespace

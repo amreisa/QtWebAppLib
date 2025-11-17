@@ -38,8 +38,8 @@
 **
 ****************************************************************************/
 
-#ifndef QTSERVICE_H
-#define QTSERVICE_H
+#ifndef QTSERVICE_HPP
+#define QTSERVICE_HPP
 
 #include <QCoreApplication>
 
@@ -189,4 +189,4 @@ private:
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(QtServiceBase::ServiceFlags)
 
-#endif // QTSERVICE_H
+#endif // QTSERVICE_HPP
